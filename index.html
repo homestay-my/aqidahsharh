@@ -8,8 +8,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aqidah Sharh | Wealth Management Specialist">
 <meta property="og:description" content="Mohon quotation takaful, pelaburan, estate planning, cukai dan hartanah terus melalui WhatsApp.">
-<meta property="og:image" content="https://aqidahsharh.pages.dev/og.jpg">
-<meta property="og:url" content="https://aqidahsharh.pages.dev/">
+<meta property="og:image" content="https://aqidah.pages.dev/og.jpg">
+<meta property="og:url" content="https://aqidah.pages.dev/">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -460,12 +460,13 @@ const CATS = [
  ]},
  {n:"Travel & Aset", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
    {n:"Travel Takaful / Insurans", s:"Perjalanan dalam & luar negara", f:[
-     {t:"Maklumat peserta", f:[namaIC, ic, tel, emel, ...alamat]},
-     {t:"Butiran perjalanan", f:[
-       {k:"destinasi", l:"Destinasi / lokasi", ph:"Cth: Tokyo, Jepun", req:1},
-       {row:[{k:"berlepas", l:"Tarikh berlepas", t:"date", req:1},{k:"pulang", l:"Tarikh tiba di Malaysia", t:"date", req:1}]},
+     {t:"Butiran perjalanan", d:"Isi tarikh dan destinasi perjalanan anda.", f:[
+       {k:"berlepas", l:"Tarikh pergi", t:"date", req:1},
+       {k:"pulang", l:"Tarikh balik (tiba di Malaysia)", t:"date", req:1},
+       {k:"destinasi", l:"Destinasi", ph:"Cth: Tokyo, Jepun", req:1},
        {k:"pesertaLain", l:"Peserta lain (jika ada)", t:"textarea", hint:"Nama dan no. IC setiap peserta, satu baris seorang."}
      ]},
+     {t:"Maklumat peserta", f:[namaIC, ic, tel, emel, ...alamat]},
      bank
    ]},
    {n:"Insurans Rumah (Fire / Flood)", s:"Houseowner / householder", f:[
@@ -555,7 +556,9 @@ const CATS = [
        {k:"telOffice", l:"No. tel", t:"tel", req:1},
        {k:"emelOffice", l:"Emel", t:"email", req:1},
        ...alamat]},
-     {t:"Cukai & PIC", f:[...cukaiNo(i? "Cth: C1234567890" : "Cth: IG12345678"),
+     {t:i?"Servis, cukai & PIC":"Cukai & PIC", f:[
+       ...(i?[{k:"jenisServis", l:"Jenis servis", t:"checks", hint:"Boleh tanda lebih dari satu.", o:["Accounting & Tax","Auditing","Company Secretary"], req:1}]:[]),
+       ...cukaiNo(i? "Cth: C1234567890" : "Cth: IG12345678"),
        {sub:"Orang untuk dihubungi (PIC)"},
        {k:"namaPic", l:"Nama PIC", req:1},
        {k:"telPic", l:"No. tel PIC", t:"tel", req:1},
@@ -564,16 +567,19 @@ const CATS = [
    ]}))
  ]},
  {n:"Property", s:"Beli, jual & sewa", i:"i-home", p:
-   [["To Buy","Nak beli hartanah"],["To Sell","Nak jual hartanah"],["Rent","Sewa atau sewakan"]].map(([n,s])=>({n, s, f:[
+   [["To Buy","Nak beli hartanah"],["To Sell","Nak jual hartanah"],["To Rent","Sewa atau sewakan"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat asas", f:[nama, tel, emel, {row:[{k:"bandar", l:"Bandar", ph:"Cth: Shah Alam", req:1}, negeri]}]},
      {t:"Butiran hartanah", f:[
-       ...(n==="Rent"?[{k:"peranan", l:"Anda adalah", t:"pills", o:["Owner (pemilik)","Tenant (penyewa)"], req:1}]:[]),
+       ...(n==="To Rent"?[{k:"peranan", l:"Saya adalah", t:"pills", o:["Pemilik","Penyewa"], req:1}]:[]),
        {k:"jenisHarta", l:"Jenis hartanah", t:"pills", o:["Room","House","Land","Commercial Building","Shoplot","Others"], req:1},
        {k:"jenisHartaLain", l:"Nyatakan jenis hartanah", req:1, show:d=>d.jenisHarta==="Others"},
        {k:"lokasiHarta", l:"Lokasi hartanah / lokasi pilihan", ph:"Cth: Seksyen 7, Shah Alam"},
-       ...(n==="Rent"?[{row:[{k:"dewasa", l:"Penyewa dewasa", t:"tel", req:1},{k:"kanak", l:"Kanak-kanak", t:"tel", req:1}]}]:[]),
+       ...(n==="To Rent"?[{sub:"Bilangan penghuni", show:d=>d.peranan==="Penyewa"},{row:[{k:"dewasa", l:"Dewasa", t:"tel", req:1, show:d=>d.peranan==="Penyewa"},{k:"kanak", l:"Kanak-kanak", t:"tel", req:1, show:d=>d.peranan==="Penyewa"}]}]:[]),
        dob, jantina, kerja,
-       bajet(BAJET_PROP, n==="Rent"?"Bajet sewa bulanan":"Bajet bulanan"), tanya]}
+       ...(n==="To Rent"?[
+         {...bajet(BAJET_PROP,"Bajet sewa bulanan"), show:d=>d.peranan!=="Pemilik"},
+         {...bajet(BAJET_PROP,"Harga sewa dijangka (bulanan)"), show:d=>d.peranan==="Pemilik"}
+       ]:[bajet(BAJET_PROP,"Bajet bulanan")]), tanya]}
    ]}))},
  {n:"Financial Coaching", s:"Personal atau berkumpulan", i:"i-board", p:[
    {n:"Personal", s:"Sesi seorang-seorang", f:takafulForm({noWho:1, noSmoke:1, noHealth:1})},
@@ -593,7 +599,7 @@ const total = () => 2 + (S.prod ? secs().length : 2) + 1;
 
 /* ===== Render medan ===== */
 function field(f){
-  if (f.sub) return `<div class="sub">${esc(f.sub)}</div>`;
+  if (f.sub) return vis(f)?`<div class="sub">${esc(f.sub)}</div>`:"";
   if (f.tip) return `<div class="tip">${ico("i-info")}<span>${esc(f.tip)}</span></div>`;
   if (f.row){ const c=f.row.filter(vis).map(field).join(""); return c?`<div class="two">${c}</div>`:""; }
   if (!vis(f)) return "";
@@ -605,7 +611,7 @@ function field(f){
   }
   if (f.t==="pills"||f.t==="checks"){
     const type=f.t==="pills"?"radio":"checkbox";
-    return `<div class="f" data-k="${f.k}"><span class="lab" id="${id}_l">${lab}</span><div class="pills" role="${type==="radio"?"radiogroup":"group"}" aria-labelledby="${id}_l">${
+    return `<div class="f" data-k="${f.k}"><span class="lab" id="${id}_l">${lab}</span>${f.hint?`<span class="hint">${esc(f.hint)}</span>`:""}<div class="pills" role="${type==="radio"?"radiogroup":"group"}" aria-labelledby="${id}_l">${
       f.o.map((o,i)=>{const on=type==="radio"?v===o:(v||[]).includes(o);
         return `<label class="pill"><input type="${type}" name="${f.k}" id="${id}_${i}" value="${esc(o)}" ${on?"checked":""}><span>${esc(o)}</span></label>`}).join("")}</div></div>`;
   }
