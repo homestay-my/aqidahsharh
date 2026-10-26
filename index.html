@@ -161,7 +161,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);bac
 .pill input:focus-visible+span{outline:2px solid var(--red);outline-offset:2px}
 .pill input[type=checkbox]+span::before{content:"";width:16px;height:16px;border-radius:5px;border:1.5px solid #cbd5e1;flex:none}
 .pill input[type=checkbox]:checked+span::before{background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat;border-color:var(--red)}
-.who{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px}
 .who .pill span{flex-direction:column;justify-content:center;padding:14px 6px;border-radius:18px;font-size:12.5px;text-align:center;gap:8px}
 .who .pill span i{width:36px;height:36px;border-radius:12px;background:#f8fafc;border:1px solid #f1f5f9;display:grid;place-items:center;color:#334155}
 .who .pill input:checked+span i{background:#fff;color:var(--red);border-color:var(--red-line)}
@@ -577,10 +577,11 @@ const CATS = [
  ]},
  {n:"Property", s:"Beli, jual & sewa", i:"i-home", p:
    [["To Buy","Nak beli hartanah"],["To Sell","Nak jual hartanah"],["To Rent","Sewa atau sewakan"]].map(([n,s])=>({n, s, f:[
-     {t:"Maklumat asas", f:[nama, tel, emel, {row:[{k:"bandar", l:"Bandar", ph:"Cth: Shah Alam", req:1}, negeri]}]},
+     {t:"Maklumat asas", f:[
+       ...(n==="To Rent"?[{k:"peranan", l:"Saya adalah (pilih 1)", t:"who", o:[["Pemilik","i-home"],["Penyewa","i-user"]], req:1}, {sub:"Maklumat diri"}]:[]),
+       nama, tel, emel, {row:[{k:"bandar", l:"Bandar", ph:"Cth: Shah Alam", req:1}, negeri]}]},
      {t:"Butiran hartanah", f:[
-       ...(n==="To Rent"?[{k:"peranan", l:"Saya adalah", t:"pills", o:["Pemilik","Penyewa"], req:1}]:[]),
-       {k:"jenisHarta", l:"Jenis hartanah", t:"pills", o:["Room","House","Land","Commercial Building","Shoplot","Others"], req:1},
+              {k:"jenisHarta", l:"Jenis hartanah", t:"pills", o:["Room","House","Land","Commercial Building","Shoplot","Others"], req:1},
        {k:"jenisHartaLain", l:"Nyatakan jenis hartanah", req:1, show:d=>d.jenisHarta==="Others"},
        {k:"lokasiHarta", l:"Lokasi hartanah / lokasi pilihan", ph:"Cth: Seksyen 7, Shah Alam"},
        ...(n==="To Rent"?[{sub:"Bilangan penghuni", show:d=>d.peranan==="Penyewa"},{row:[{k:"dewasa", l:"Dewasa", t:"tel", req:1, show:d=>d.peranan==="Penyewa"},{k:"kanak", l:"Kanak-kanak", t:"tel", req:1, show:d=>d.peranan==="Penyewa"}]}]:[]),
