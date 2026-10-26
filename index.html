@@ -559,14 +559,14 @@ const CATS = [
      {t:"Pekerjaan & cukai", f:[kerja, {k:"majikan", l:"Majikan", req:1}, ...cukaiNo("Cth: IG12345678"), tanya]}
    ]})),
    ...[["Small & Medium Enterprise (SME)","Enterprise / perniagaan kecil"],["Sdn Bhd","Syarikat sendirian berhad"]].map(([n,s],i)=>({n, s, f:[
-     {t:"Maklumat syarikat", f:[
-       ...(i?[{k:"jenisServis", l:"Jenis servis (lebih dari 1 pilihan)", t:"checks", o:["Accounting & Tax","Auditing","Company Secretary"], req:1},{sub:"Butiran syarikat"}]:[]),
+     {t:i?"Jenis servis":"Maklumat syarikat", f:[
+       ...(i?[{k:"jenisServis", l:"Pilih servis (lebih dari 1 pilihan)", t:"checks", o:["Accounting & Tax","Auditing","Company Secretary"], req:1},{sub:"Maklumat syarikat"}]:[]),
        {k:"syarikat", l:"Nama syarikat", req:1},
        {row:[{k:"ssm", l:"No. SSM", req:1},{k:"industri", l:"Industri", req:1}]},
        {k:"telOffice", l:"No. tel", t:"tel", req:1},
        {k:"emelOffice", l:"Emel", t:"email", req:1},
        ...alamat]},
-     {t:"Cukai & PIC", f:[
+     {t:"Cukai pendapatan", f:[
        ...cukaiNo(i? "Cth: C1234567890" : "Cth: IG12345678"),
        {sub:"Orang untuk dihubungi (PIC)"},
        {k:"namaPic", l:"Nama PIC", req:1},
@@ -596,6 +596,18 @@ const CATS = [
    {n:"Group", s:"Sesi berkumpulan", f:takafulForm({noWho:1, noSmoke:1, noHealth:1, extra2:[{k:"bilPeserta", l:"Anggaran bilangan peserta", t:"tel", req:1}]})}
  ]}
 ];
+
+/* Satu muka untuk setiap borang: gabung semua bahagian, kekalkan tajuk kecil */
+CATS.forEach(c=>c.p.forEach(p=>{
+  if(p.f.length<2) return;
+  const f=[];
+  p.f.forEach(sec=>{
+    f.push({sub:sec.t});
+    if(sec.d) f.push({tip:sec.d});
+    sec.f.forEach(x=>{ if(x.sub && f.length && f[f.length-1].sub) f.pop(); f.push(x); });
+  });
+  p.f=[{t:"Maklumat permohonan", d:"Lengkapkan butiran di bawah, kemudian tekan Semak.", f}];
+}));
 
 /* ===== State ===== */
 const S = {cat:null, prod:null, step:0, d:{}};
