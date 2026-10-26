@@ -73,6 +73,12 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .hb.glass{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff}
 .hb.glass svg{color:#fbbf24}
 
+/* Language switch */
+.lang{position:absolute;top:12px;right:12px;z-index:3;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.lang button{all:unset;cursor:pointer;font-size:12px;font-weight:800;letter-spacing:.04em;color:#475569;padding:6px 11px;border-radius:999px;transition:all .15s}
+.lang button[aria-pressed="true"]{background:var(--red);color:#fff}
+.lang button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+
 /* Social */
 .social{padding:16px}
 .s-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
@@ -266,6 +272,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);bac
 
 <div class="col" id="top">
   <header class="hero">
+    <div class="lang" role="group" aria-label="Bahasa / Language"><button type="button" data-lang="ms" aria-pressed="true">BM</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
     <div class="h-media" id="photoBox" hidden>
       <img id="photo" alt="" width="720" height="777">
       <div class="h-logo" id="agencyBox" hidden><img id="agencyLogo" alt=""></div>
@@ -367,6 +374,115 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);bac
 </nav>
 
 <script>
+const I18N = {
+/* Hero, umum */
+"MEDIA SOSIAL RASMI":"OFFICIAL SOCIAL MEDIA","1 Klik":"1 Click",
+"Saya bantu anda rancang perlindungan, simpanan, harta pusaka dan urusan cukai di satu tempat. Pilih apa yang anda perlukan:":"I help you plan your protection, savings, estate and tax matters in one place. Choose what you need:",
+"KONSULTASI PERCUMA":"FREE CONSULTATION","Minta Sebut Harga":"Request a Quotation",
+"Pilih jenis perlindungan atau servis, kemudian lengkapkan maklumat ringkas.":"Choose a protection or service type, then fill in a few quick details.",
+"Apa yang anda perlukan?":"What do you need?","Pilih satu kategori untuk mula.":"Choose a category to get started.",
+"Pilih produk / servis":"Choose a product / service","Soalan seterusnya akan ikut pilihan anda.":"The next questions will follow your choice.",
+"Kembali":"Back","Seterusnya":"Next","Semak":"Review",
+"Maklumat tidak disimpan dalam laman ini. Ia hanya dikongsi bila anda hantar melalui WhatsApp. Jika halaman dimuat semula, isian akan hilang.":"Your details are not stored on this site. They are only shared when you send them via WhatsApp. If the page is reloaded, your answers will be cleared.",
+"Semak & hantar":"Review & send",
+"Ini mesej yang akan dihantar ke WhatsApp saya. Tekan Kembali jika ada yang nak dibetulkan.":"This is the message that will be sent to my WhatsApp. Tap Back if anything needs fixing.",
+"Hantar melalui WhatsApp":"Send via WhatsApp","Salin mesej":"Copy message",
+"Jika WhatsApp tidak terbuka, salin mesej dan hantar ke":"If WhatsApp doesn't open, copy the message and send it to",
+"Mesej disalin":"Message copied","Teks dipilih, tekan salin":"Text selected, tap copy","Pautan disalin":"Link copied","Salin pautan dari bar alamat":"Copy the link from the address bar",
+"Sila pilih satu.":"Please choose one.","Ruangan ini perlu diisi.":"This field is required.","Format emel tidak betul.":"Invalid email format.","Nombor telefon terlalu pendek.":"Phone number is too short.","No. IC perlu 12 digit.":"IC number must be 12 digits.",
+"(pilihan)":"(optional)","Utama":"Home","Borang":"Form","Kerjaya":"Career","Kongsi":"Share",
+"Salam, saya nak minta quotation.":"Hi, I would like to request a quotation.","Kategori":"Category","Produk":"Product",
+"Salam, saya nak tanya tentang perlindungan.":"Hi, I would like to ask about protection plans.",
+/* Kerjaya */
+"Teroka Kerjaya, Tambah Pendapatan":"Explore a Career, Grow Your Income",
+"Berminat sertai pasukan saya? Mulakan secara part-time atau full-time dengan latihan dan bimbingan untuk bantu anda bermula.":"Interested in joining my team? Start part-time or full-time, with training and mentoring to help you get started.",
+"Pilihan part-time / full-time":"Part-time / full-time options","Latihan & bimbingan":"Training & mentoring","Peluang bina pendapatan tambahan":"Opportunity to build extra income",
+"Saya Berminat, Nak Tahu Lagi":"I'm Interested, Tell Me More","Belum ada pengalaman? Jom bincang cara bermula.":"No experience yet? Let's talk about how to start.",
+"Umur":"Age","Pekerjaan sekarang":"Current occupation","Kelayakan akademik":"Academic qualification","Degree & ke atas":"Degree & above",
+"Anda berminat untuk buat?":"How would you like to do it?","Belum pasti":"Not sure yet","Berminat untuk kerjaya":"Career interest","Boleh tanda lebih dari satu.":"You can tick more than one.",
+"Minta Info Kerjaya":"Request Career Info","Daftar minat sahaja. Anda boleh dapatkan maklumat dahulu sebelum buat keputusan.":"Register your interest only. You can get the details first before deciding.",
+"Cth: 28":"E.g. 28","Cth: Eksekutif Pemasaran":"E.g. Marketing Executive","Tulis soalan anda di sini":"Write your question here",
+"No. WhatsApp":"WhatsApp no.","Komitmen":"Commitment","Pertanyaan":"Question",
+"Salam, saya berminat nak tahu tentang peluang kerjaya.":"Hi, I'm interested in learning about the career opportunity.","MAKLUMAT SAYA":"MY DETAILS",
+/* Kategori & produk */
+"Perlindungan Diri":"Personal Protection","Takaful kesihatan & hibah":"Health takaful & hibah","Bantu bayar bil hospital":"Helps pay hospital bills",
+"Bekalan kewangan untuk keluarga":"Financial support for your family","Pelan Sakit Kritikal":"Critical Illness Plan","Wang tunai bila didiagnosis":"Cash payout upon diagnosis",
+"Pelan Penggantian Pendapatan":"Income Replacement Plan","Bantu tampung komitmen bulanan":"Helps cover monthly commitments","Lindungi pinjaman rumah":"Protects your home loan",
+"Travel & Aset":"Travel & Assets","Travel, rumah, kenderaan":"Travel, home, vehicle","Perjalanan dalam & luar negara":"Domestic & overseas trips",
+"Insurans Rumah (Fire / Flood)":"Home Insurance (Fire / Flood)","Insurans Kenderaan":"Vehicle Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
+"Perlindungan Syarikat":"Business Protection","Lindungi individu penting syarikat":"Protect your company's key people","Medical & Pampasan Korporat":"Corporate Medical & Compensation","Untuk pekerja syarikat":"For company employees",
+"Projek luar negara":"Overseas projects","Jurutera perunding, juruukur, arkitek":"Consulting engineers, surveyors, architects",
+"Wasiat, hibah & pusaka":"Wills, hibah & estate","Pelantikan Pentadbir (Wasi)":"Appointment of Executor (Wasi)","Pengurusan Harta Pusaka":"Estate Administration","Dokumen Hibah":"Hibah Documents","Rumah, ASB, Tabung Haji & lain-lain":"Home, ASB, Tabung Haji & more","Wasiat 1/3":"1/3 Will (Wasiat)",
+"Pendidikan & persaraan":"Education & retirement","Simpanan & pelaburan":"Savings & investment","Flexi atau Non Flexi":"Flexi or Non Flexi",
+"Cukai, akaun, audit, setiausaha":"Tax, accounts, audit, secretarial","Individu berpendapatan komisen":"Commission-based individuals","Individu bergaji":"Salaried individuals","Enterprise / perniagaan kecil":"Enterprise / small business","Syarikat sendirian berhad":"Private limited company",
+"Beli, jual & sewa":"Buy, sell & rent","Nak beli hartanah":"Looking to buy","Nak jual hartanah":"Looking to sell","Sewa atau sewakan":"Rent or let out",
+"Personal atau berkumpulan":"One-to-one or group","Sesi seorang-seorang":"One-to-one session","Sesi berkumpulan":"Group session",
+/* Tajuk bahagian */
+"Maklumat permohonan":"Application details","Lengkapkan butiran di bawah, kemudian tekan Semak.":"Fill in the details below, then tap Review.",
+"Maklumat asas":"Basic details","Maklumat pemohon":"Applicant details","Maklumat untuk anggaran caruman":"Details for contribution estimate","Isi berdasarkan orang yang akan dilindungi.":"Fill in based on the person to be covered.",
+"Maklumat perjalanan":"Travel details","Lengkapkan butiran di bawah dalam satu langkah.":"Fill in the details below in one step.","Butiran perjalanan":"Trip details","Maklumat peserta":"Traveller details",
+"Maklumat bank":"Bank details","Untuk bayaran tuntutan nanti. Boleh kosongkan dan beri terus kepada saya kemudian.":"For claim payouts later. You can leave this blank and give it to me directly later.",
+"Maklumat pemilik":"Owner details","Butiran rumah":"Home details","Sejarah rumah":"Home history","Apa yang nak dilindungi?":"What would you like to cover?",
+"Maklumat kenderaan":"Vehicle details","Maklumat pemandu":"Driver details","Tambahan (add-on)":"Add-ons","Pilih jika mahu. Boleh langkau.":"Optional. You can skip this.",
+"Maklumat syarikat":"Company details","Orang untuk dihubungi (PIC)":"Person in charge (PIC)","Butiran projek":"Project details","Butiran tambahan":"Additional details","Lain-lain":"Others",
+"Maklumat diri":"Personal details","Pekerjaan & cukai":"Employment & tax","Cukai pendapatan":"Income tax","Jenis servis":"Service type","Butiran hartanah":"Property details","Bilangan penghuni":"Number of occupants","Status pemilik harta":"Estate owner status",
+/* Medan */
+"Perlindungan ini untuk siapa?":"Who is this coverage for?","Pelan ini untuk siapa?":"Who is this plan for?","Diri Sendiri":"Myself","Anak":"Child","Pasangan":"Spouse","Nama anak / pasangan":"Child's / spouse's name",
+"Nama":"Name","Nombor WhatsApp":"WhatsApp number","Emel":"Email","Negeri":"State","Tarikh lahir":"Date of birth","Jantina":"Gender","Lelaki":"Male","Perempuan":"Female","Pekerjaan":"Occupation",
+"Merokok atau vape?":"Do you smoke or vape?","Tidak":"No","Ya":"Yes","Status kesihatan semasa":"Current health status","Tiada masalah kesihatan":"No health issues","Ada masalah kesihatan":"Have health issues","Nyatakan masalah kesihatan":"Describe the health issues",
+"Bajet bulanan anda":"Your monthly budget","Bawah RM100":"Below RM100","RM200 ke atas":"RM200 and above","RM300 ke atas":"RM300 and above","RM2,000 ke atas":"RM2,000 and above","Belum pasti, perlukan cadangan":"Not sure, need a recommendation",
+"Ada perkara nak ditanya?":"Anything you'd like to ask?","Tulis soalan atau maklumat tambahan di sini":"Write your question or any extra info here",
+"Jumlah pinjaman (RM)":"Loan amount (RM)","Tempoh (tahun)":"Tenure (years)",
+"Tarikh pergi":"Departure date","Tarikh balik (tiba di Malaysia)":"Return date (arrival in Malaysia)","Destinasi":"Destination","Nama penuh (seperti IC)":"Full name (as per IC)","No. IC":"IC no.","Alamat":"Address","No. rumah, jalan, taman":"House no., street, area","Poskod":"Postcode","Bandar":"City",
+"Peserta lain (jika ada)":"Other travellers (if any)","Nama dan no. IC setiap peserta, satu baris seorang.":"Name and IC no. of each traveller, one per line.","Nama bank":"Bank name","No. akaun simpanan / semasa":"Savings / current account no.",
+"Alamat surat-menyurat":"Mailing address","Alamat rumah yang dilindungi":"Address of the insured home","Sama seperti di atas":"Same as above","Alamat lain":"Different address","Tarikh mula perlindungan":"Coverage start date",
+"Jenis rumah":"Property type","Jenis binaan":"Construction type","Batu penuh":"Full brick","Separa batu":"Partial brick","Bil. tingkat":"No. of storeys","Bil. bilik":"No. of rooms","Tahun dibina":"Year built",
+"Pernah dilanda banjir?":"Has it ever been flooded?","Akan dikosongkan 90 hari atau lebih?":"Will it be unoccupied for 90 days or more?","Ada kerugian / kerosakan dalam 2 tahun lepas?":"Any loss / damage in the past 2 years?",
+"Pilih perlindungan":"Choose coverage","Bangunan + kandungan":"Building + contents","Bangunan sahaja":"Building only","Kandungan sahaja":"Contents only","Nilai pasaran bangunan (RM)":"Building market value (RM)","Nilai kandungan rumah (RM)":"Home contents value (RM)",
+"Jenis kenderaan":"Vehicle type","Motor":"Motorcycle","Kereta":"Car","Lori":"Lorry","No. pendaftaran":"Registration no.","Kapasiti (CC)":"Engine capacity (CC)","Jenama & model":"Make & model","Tahun dibuat":"Year of manufacture",
+"Pemilikan":"Ownership","Individu":"Individual","Syarikat":"Company","Kegunaan kenderaan syarikat":"Company vehicle usage","Persendirian":"Private","Komersial (awam)":"Commercial (public)",
+"Gambar geran boleh dihantar terus dalam WhatsApp selepas borang ini dihantar.":"You can send a photo of the vehicle grant directly on WhatsApp after submitting this form.",
+"Jika kosong, dikira sebagai Pentadbiran":"If left blank, Administration will be used","Pengalaman memandu (tahun)":"Driving experience (years)","Cermin (windscreen)":"Windscreen","Had perlindungan cermin":"Windscreen coverage limit","Add-on lain":"Other add-ons",
+"Nama syarikat":"Company name","No. SSM":"SSM no.","Industri":"Industry","Jenis syarikat":"Company type","No. tel pejabat":"Office phone no.","Emel pejabat":"Office email","Jumlah sharepartner (orang)":"No. of shareholders / partners",
+"Nama PIC":"PIC name","No. tel PIC":"PIC phone no.","Emel PIC":"PIC email","Jumlah pekerja":"No. of employees","Negara / lokasi projek":"Project country / location","Bidang profesion":"Profession",
+"Bilangan profesional berdaftar":"No. of registered professionals","Anggaran fi profesional setahun (RM)":"Estimated annual professional fees (RM)",
+"Masih hidup":"Alive","Telah meninggal dunia":"Deceased","Jenis PRS (pilih 1)":"PRS type (choose 1)",
+"Majikan":"Employer","No. cukai pendapatan":"Income tax no.","Sudah berdaftar":"Registered","Belum berdaftar":"Not registered","No. cukai":"Tax no.","No. tel":"Phone no.","Pilih servis (lebih dari 1 pilihan)":"Choose services (more than 1 allowed)",
+"Jenis hartanah":"Property type","Nyatakan jenis hartanah":"Specify property type","Lokasi hartanah / lokasi pilihan":"Property location / preferred location","Bajet bulanan":"Monthly budget",
+"Saya adalah (pilih 1)":"I am the (choose 1)","Pemilik":"Owner","Penyewa":"Tenant","Dewasa":"Adults","Kanak-kanak":"Children","Bajet sewa bulanan":"Monthly rental budget","Harga sewa dijangka (bulanan)":"Expected rent (monthly)",
+"Anggaran bilangan peserta":"Estimated no. of participants",
+/* Contoh (placeholder) */
+"Cth: Ali":"E.g. Ali","Cth: Ahmad":"E.g. Ahmad","Cth: 0123456789":"E.g. 0123456789","Cth: nama@emel.com":"E.g. name@email.com","Cth: 12/05/1990":"E.g. 12/05/1990","Cth: Eksekutif":"E.g. Executive",
+"Contoh: Darah tinggi / Kencing manis / Asma":"E.g. High blood pressure / Diabetes / Asthma","Cth: Tokyo, Jepun":"E.g. Tokyo, Japan","Cth: Ahmad bin Ali":"E.g. Ahmad bin Ali","Cth: 900101-01-1234":"E.g. 900101-01-1234",
+"Cth: 40000":"E.g. 40000","Cth: Shah Alam":"E.g. Shah Alam","Cth: Maybank":"E.g. Maybank","Cth: 2015":"E.g. 2015","Cth: DBA 1234":"E.g. DBA 1234","Cth: Myvi 1.5 AV":"E.g. Myvi 1.5 AV","Cth: Pemandu tambahan":"E.g. Additional driver",
+"Cth: Pembinaan":"E.g. Construction","Cth: IG12345678":"E.g. IG12345678","Cth: C1234567890":"E.g. C1234567890","Cth: Seksyen 7, Shah Alam":"E.g. Seksyen 7, Shah Alam",
+"Pilih negeri":"Choose state"
+};
+
+let LANG="ms";
+try{ const q=new URLSearchParams(location.search).get("lang"); LANG = q==="en"||q==="ms" ? q : (localStorage.getItem("lang")||"ms"); }catch(e){}
+function T(x){
+  if(LANG!=="en"||x==null) return x;
+  const k=String(x).trim(); if(I18N[k]) return I18N[k];
+  let m=k.match(/^(\d+)\. (.+)$/); if(m) return `${m[1]}. ${T(m[2])}`;
+  m=k.match(/^Pilih (.+)$/); if(m && I18N[m[1]]) return `Select ${I18N[m[1]]}`;
+  return x;
+}
+const _orig=new WeakMap();
+function tr(root){
+  if(!root) return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT); let n;
+  while(n=w.nextNode()){
+    const p=n.parentElement; if(!p||p.closest("script,style,textarea,svg,.summary,.no-tr")) continue;
+    if(!_orig.has(n)) _orig.set(n,n.nodeValue);
+    const o=_orig.get(n), k=o.trim(); if(!k) continue;
+    const t=T(k); n.nodeValue = LANG==="en" && t!==k ? o.replace(k,t) : o;
+  }
+  root.querySelectorAll("[placeholder]").forEach(e=>{ if(!e.dataset.ph) e.dataset.ph=e.getAttribute("placeholder"); e.setAttribute("placeholder",T(e.dataset.ph)); });
+  root.querySelectorAll("option").forEach(e=>{ if(e.dataset.ot==null) e.dataset.ot=e.textContent; e.textContent=T(e.dataset.ot); });
+}
+const tv = v => String(v).split(", ").map(x=>T(x)).join(", ");
+
 /* ===== TUKAR DI SINI ===== */
 const CONFIG = {
   brand: "Aqidah Sharh",
@@ -640,7 +756,7 @@ function field(f){
         return `<label class="pill"><input type="${type}" name="${f.k}" id="${id}_${i}" value="${esc(o)}" ${on?"checked":""}><span>${esc(o)}</span></label>`}).join("")}</div></div>`;
   }
   let input;
-  if (f.t==="select") input=`<select id="${id}" name="${f.k}"><option value="">Pilih ${esc(f.l)}</option>${f.o.map(o=>`<option ${v===o?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  if (f.t==="select") input=`<select id="${id}" name="${f.k}"><option value="">Pilih ${esc(f.l)}</option>${f.o.map(o=>`<option value="${esc(o)}" ${v===o?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
   else if (f.t==="textarea") input=`<textarea id="${id}" name="${f.k}" placeholder="${esc(f.ph||"")}">${esc(v)}</textarea>`;
   else input=`<input id="${id}" name="${f.k}" type="${f.t||"text"}" ${f.t==="tel"?'inputmode="numeric"':""} value="${esc(v)}" placeholder="${esc(f.ph||"")}">`;
   return `<div class="f" data-k="${f.k}"><label for="${id}">${lab}</label>${f.hint?`<span class="hint">${esc(f.hint)}</span>`:""}${input}</div>`;
@@ -675,10 +791,10 @@ function render(anim){
         <a class="btn wa" href="https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${ico("i-msg")}Hantar melalui WhatsApp</a>
         <button class="btn ghost" type="button" id="copy">${ico("i-copy")}Salin mesej</button>
       </div>
-      <p class="fine">Jika WhatsApp tidak terbuka, salin mesej dan hantar ke ${esc(CONFIG.telDisplay)}.</p>`;
+      <p class="fine">${esc(T("Jika WhatsApp tidak terbuka, salin mesej dan hantar ke"))} ${esc(CONFIG.telDisplay)}.</p>`;
     $("copy").onclick=async()=>{
-      try{ await navigator.clipboard.writeText(msg); toast("Mesej disalin"); }
-      catch{ const r=document.createRange(); r.selectNodeContents($("sum")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Teks dipilih, tekan salin"); }
+      try{ await navigator.clipboard.writeText(msg); toast(T("Mesej disalin")); }
+      catch{ const r=document.createRange(); r.selectNodeContents($("sum")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast(T("Teks dipilih, tekan salin")); }
     };
   } else {
     const sec=secs()[st-2], last = st===n-2;
@@ -686,6 +802,7 @@ function render(anim){
     v.innerHTML=`${crumb}<p class="qtitle">${st}. ${esc(sec.t)}</p>${sec.d?`<p class="qdesc">${esc(sec.d)}</p>`:'<div style="height:10px"></div>'}
       <div class="fields">${sec.f.map(field).join("")}</div>`;
   }
+  tr(v); tr($("nav"));
   if (anim){ v.classList.remove("step-anim"); void v.offsetWidth; v.classList.add("step-anim"); }
 }
 
@@ -710,10 +827,10 @@ function validate(){
     const v=S.d[f.k], box=document.querySelector(`.f[data-k="${f.k}"]`); if(!box) return;
     const digits=String(v||"").replace(/\D/g,"");
     let msg="";
-    if(f.req && (!v || (Array.isArray(v)&&!v.length) || !String(v).trim())) msg = (f.t==="pills"||f.t==="who")?"Sila pilih satu.":"Ruangan ini perlu diisi.";
-    else if(v && f.t==="email" && !/^\S+@\S+\.\S+$/.test(v)) msg="Format emel tidak betul.";
-    else if(v && /^tel/.test(f.k) && digits.length<9) msg="Nombor telefon terlalu pendek.";
-    else if(v && f.k==="ic" && digits.length!==12) msg="No. IC perlu 12 digit.";
+    if(f.req && (!v || (Array.isArray(v)&&!v.length) || !String(v).trim())) msg = T((f.t==="pills"||f.t==="who"||f.t==="checks")?"Sila pilih satu.":"Ruangan ini perlu diisi.");
+    else if(v && f.t==="email" && !/^\S+@\S+\.\S+$/.test(v)) msg=T("Format emel tidak betul.");
+    else if(v && /^tel/.test(f.k) && digits.length<9) msg=T("Nombor telefon terlalu pendek.");
+    else if(v && f.k==="ic" && digits.length!==12) msg=T("No. IC perlu 12 digit.");
     if(msg){ box.classList.add("bad"); if(!box.querySelector(".err")) box.insertAdjacentHTML("beforeend",`<span class="err">${msg}</span>`); first=first||box; }
   });
   if(first){ first.scrollIntoView({block:"center",behavior:"smooth"}); first.querySelector("input,select,textarea")?.focus({preventScroll:true}); return false; }
@@ -724,16 +841,16 @@ $("back").onclick=()=>go(S.step-1);
 
 /* ===== Mesej WhatsApp ===== */
 function buildMsg(){
-  const L=[`Salam, saya nak minta quotation.`, ``, `*Kategori:* ${S.cat.n}`, `*Produk:* ${S.prod.n}`];
+  const L=[T("Salam, saya nak minta quotation."), ``, `*${T("Kategori")}:* ${T(S.cat.n)}`, `*${T("Produk")}:* ${T(S.prod.n)}`];
   secs().forEach(sec=>{
     const rows=[];
     flat(sec.f).forEach(f=>{
       if(!f.k||!vis(f)) return;
-      let v=S.d[f.k]; if(Array.isArray(v)) v=v.join(", ");
+      let v=S.d[f.k]; if(Array.isArray(v)) v=v.join(", "); if(v && f.o) v=tv(v);
       if(f.t==="date" && /^\d{4}-\d{2}-\d{2}$/.test(v||"")){ const [y,m,dd]=v.split("-"); v=`${dd}/${m}/${y}`; }
-      if(v && String(v).trim()) rows.push(`${f.l.replace(/\?$/,"")}: ${String(v).trim()}`);
+      if(v && String(v).trim()) rows.push(`${T(f.l).replace(/\?$/,"")}: ${String(v).trim()}`);
     });
-    if(rows.length) L.push("", `*${sec.t.toUpperCase()}*`, ...rows);
+    if(rows.length) L.push("", `*${T(sec.t).toUpperCase()}*`, ...rows);
   });
   return L.join("\n");
 }
@@ -748,11 +865,11 @@ $("tbProduk").onclick=()=>$("borang").scrollIntoView({behavior:"smooth",block:"s
 $("tbSemak").onclick=()=>{ if($("cForm").hidden) $("cToggle").click(); $("kerjaya").scrollIntoView({behavior:"smooth",block:"start"}); };
 $("tbShare").onclick=async()=>{
   try{ if(navigator.share){ await navigator.share({title:CONFIG.brand,url:location.href}); return; } }catch(e){ if(e.name==="AbortError") return; }
-  try{ await navigator.clipboard.writeText(location.href); toast("Pautan disalin"); }catch{ toast("Salin pautan dari bar alamat"); }
+  try{ await navigator.clipboard.writeText(location.href); toast(T("Pautan disalin")); }catch{ toast(T("Salin pautan dari bar alamat")); }
 };
 
 /* ===== Kerjaya ===== */
-$("c_negeri").innerHTML=`<option value="">Pilih negeri</option>`+NEGERI.map(n=>`<option>${n}</option>`).join("");
+$("c_negeri").innerHTML=`<option value="">Pilih negeri</option>`+NEGERI.map(n=>`<option value="${n}">${n}</option>`).join("");
 $("cToggle").onclick=()=>{
   const f=$("cForm"), open=f.hidden; f.hidden=!open; $("cNote").hidden=open;
   $("cToggle").setAttribute("aria-expanded",String(open));
@@ -766,18 +883,18 @@ $("cForm").addEventListener("submit",e=>{
   C_FIELDS.forEach(([k,l])=>{
     const v=fd.getAll(k).map(x=>String(x).trim()).filter(Boolean).join(", "), box=document.querySelector(`[data-c="${k}"]`);
     let msg="";
-    if(k!=="c_msg" && !v) msg=box.querySelector(".pills")?"Sila pilih satu.":"Ruangan ini perlu diisi.";
-    else if(k==="c_tel" && v.replace(/\D/g,"").length<9) msg="Nombor telefon terlalu pendek.";
+    if(k!=="c_msg" && !v) msg=T(box.querySelector(".pills")?"Sila pilih satu.":"Ruangan ini perlu diisi.");
+    else if(k==="c_tel" && v.replace(/\D/g,"").length<9) msg=T("Nombor telefon terlalu pendek.");
     if(msg){ box.classList.add("bad"); if(!box.querySelector(".err")) box.insertAdjacentHTML("beforeend",`<span class="err">${msg}</span>`); first=first||box; }
-    if(v) rows.push(`${l}: ${v}`);
+    if(v) rows.push(`${T(l)}: ${box.querySelector(".pills")?tv(v):v}`);
   });
   if(first){ first.scrollIntoView({block:"center",behavior:"smooth"}); return; }
-  const msg=["Salam, saya berminat nak tahu tentang peluang kerjaya.","","*MAKLUMAT SAYA*",...rows].join("\n");
+  const msg=[T("Salam, saya berminat nak tahu tentang peluang kerjaya."),"",`*${T("MAKLUMAT SAYA")}*`,...rows].join("\n");
   const a=document.createElement("a"); a.href=`https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(msg)}`; a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
 });
 
 /* ===== Brand ===== */
-const waLink=`https://wa.me/${CONFIG.wa}?text=${encodeURIComponent("Salam, saya nak tanya tentang perlindungan.")}`;
+const waLink=()=>`https://wa.me/${CONFIG.wa}?text=${encodeURIComponent(T("Salam, saya nak tanya tentang perlindungan."))}`;
 $("brandName").textContent=CONFIG.brand; $("brandTitle").textContent=CONFIG.title; $("brandTag").textContent=CONFIG.tagline; $("brandSlogan").textContent=CONFIG.slogan?`“${CONFIG.slogan}”`:""; $("brandSlogan").hidden=!CONFIG.slogan;
 $("footName").textContent=CONFIG.brand; $("footTitle").textContent=`${CONFIG.title} · Established ${CONFIG.established}`;
 $("logo").textContent=CONFIG.brand.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
@@ -786,9 +903,18 @@ if(CONFIG.photo){ const im=$("photo"); im.alt=CONFIG.brand; $("logo").hidden=tru
   im.src=CONFIG.photo; }
 if(CONFIG.logo){ $("agencyLogo").src=CONFIG.logo; $("agencyLogo").alt="Logo agensi"; $("agencyBox").hidden=false; }
 [["sIg","instagram"],["sFb","facebook"],["sTt","tiktok"],["sTh","threads"]].forEach(([id,k])=>{ const u=CONFIG.social?.[k]; if(u) $(id).href=u; else $(id).hidden=true; });
-$("waBtn").href=waLink; $("fab").href=waLink;
+
 $("telBtn").href="tel:+"+CONFIG.wa; $("telText").textContent=CONFIG.telDisplay;
-render(false);
+function setLang(l){
+  LANG=l; try{ localStorage.setItem("lang",l); }catch(e){}
+  document.documentElement.lang = l==="en"?"en":"ms";
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===l)));
+  $("waBtn").href=waLink(); $("fab").href=waLink();
+  document.querySelectorAll(".f .err").forEach(e=>e.remove()); document.querySelectorAll(".f.bad").forEach(e=>e.classList.remove("bad"));
+  tr(document.body); render(false);
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+setLang(LANG);
 </script>
 
 </body>
