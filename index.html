@@ -710,6 +710,7 @@ function buildMsg(){
     flat(sec.f).forEach(f=>{
       if(!f.k||!vis(f)) return;
       let v=S.d[f.k]; if(Array.isArray(v)) v=v.join(", ");
+      if(f.t==="date" && /^\d{4}-\d{2}-\d{2}$/.test(v||"")){ const [y,m,dd]=v.split("-"); v=`${dd}/${m}/${y}`; }
       if(v && String(v).trim()) rows.push(`${f.l.replace(/\?$/,"")}: ${String(v).trim()}`);
     });
     if(rows.length) L.push("", `*${sec.t.toUpperCase()}*`, ...rows);
