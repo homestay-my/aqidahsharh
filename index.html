@@ -560,13 +560,13 @@ const CATS = [
    ]})),
    ...[["Small & Medium Enterprise (SME)","Enterprise / perniagaan kecil"],["Sdn Bhd","Syarikat sendirian berhad"]].map(([n,s],i)=>({n, s, f:[
      {t:"Maklumat syarikat", f:[
+       ...(i?[{k:"jenisServis", l:"Jenis servis (lebih dari 1 pilihan)", t:"checks", o:["Accounting & Tax","Auditing","Company Secretary"], req:1},{sub:"Butiran syarikat"}]:[]),
        {k:"syarikat", l:"Nama syarikat", req:1},
        {row:[{k:"ssm", l:"No. SSM", req:1},{k:"industri", l:"Industri", req:1}]},
        {k:"telOffice", l:"No. tel", t:"tel", req:1},
        {k:"emelOffice", l:"Emel", t:"email", req:1},
        ...alamat]},
-     {t:i?"Servis, cukai & PIC":"Cukai & PIC", f:[
-       ...(i?[{k:"jenisServis", l:"Jenis servis", t:"checks", hint:"Boleh tanda lebih dari satu.", o:["Accounting & Tax","Auditing","Company Secretary"], req:1}]:[]),
+     {t:"Cukai & PIC", f:[
        ...cukaiNo(i? "Cth: C1234567890" : "Cth: IG12345678"),
        {sub:"Orang untuk dihubungi (PIC)"},
        {k:"namaPic", l:"Nama PIC", req:1},
