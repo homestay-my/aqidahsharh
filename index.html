@@ -416,7 +416,8 @@ const penerima = [
   {k:"namaLain", l:"Nama anak / pasangan", ph:"Cth: Ali", req:1, show:d=>d.penerima&&d.penerima!=="Diri Sendiri"},
 ];
 const takafulForm = (opt={}) => {
-  const s1 = [ ...(opt.noWho?[]:penerima), {sub:"Maklumat pemohon"}, nama, tel, emel, negeri, ...(opt.extra1||[]) ];
+  const who = opt.budget===BAJET_SAVE ? [{...penerima[0], l:"Pelan ini untuk siapa?"}, penerima[1]] : penerima;
+  const s1 = [ ...(opt.top||[]), ...(opt.noWho?[]:who), {sub:"Maklumat pemohon"}, nama, tel, emel, negeri, ...(opt.extra1||[]) ];
   const s2 = [ dob, jantina, kerja ];
   if (!opt.noSmoke) s2.push({k:"merokok", l:"Merokok atau vape?", t:"pills", o:["Tidak","Ya"], req:1});
   if (!opt.noHealth) s2.push(
@@ -552,7 +553,7 @@ const CATS = [
        tanya]}
    ]}))},
  {n:"Saving & Investment", s:"Pendidikan & persaraan", i:"i-trend", p:
-   [["Child Education Plan","Simpanan pendidikan anak"],["Retirement Scheme (PRS – Non Flexi)",""],["Retirement Scheme (Flexi)",""],["Director Provident Fund",""],["Business Owner Provident Fund",""],["Corporate Investment",""]].map(([n,s])=>({n, s, f:takafulForm({budget:BAJET_SAVE})}))},
+   [["Child Education Plan","Simpanan pendidikan anak"],["Retirement Scheme (PRS)","Flexi atau Non Flexi"],["Director Provident Fund",""],["Business Owner Provident Fund",""],["Corporate Investment",""]].map(([n,s])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: n.startsWith("Retirement Scheme")?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
  {n:"Tax Services", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
    ...[["Commission Earner","Individu berpendapatan komisen"],["Payroll / Employee","Individu bergaji"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat diri", f:[nama, tel, emel, ...alamat]},
