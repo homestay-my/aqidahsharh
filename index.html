@@ -406,10 +406,11 @@ const I18N = {
 "No. WhatsApp":"WhatsApp no.","Komitmen":"Commitment","Pertanyaan":"Question",
 "Salam, saya berminat nak tahu tentang peluang kerjaya.":"Hi, I'm interested in learning about the career opportunity.","MAKLUMAT SAYA":"MY DETAILS",
 /* Kategori & produk */
-"Perlindungan Diri":"Personal Protection","Takaful kesihatan & hibah":"Health takaful & hibah","Bantu bayar bil hospital":"Helps pay hospital bills",
+"Perlindungan Diri (Takaful)":"Individual Takaful (Protection)","Perlindungan Aset & Pelancongan":"Travel & Assets Takaful","Pengurusan & Perancangan Harta Pusaka":"Estate Management & Planning","Simpanan & Pelaburan":"Saving & Investment","Servis Pengisytiharaan Cukai":"Tax Declaration Services","Hartanah":"Property","Jurulatih & Bimbingan Kewangan":"Financial Coaching",
+"Takaful kesihatan & hibah":"Health takaful & hibah","Bantu bayar bil hospital":"Helps pay hospital bills",
 "Bekalan kewangan untuk keluarga":"Financial support for your family","Pelan Sakit Kritikal":"Critical Illness Plan","Wang tunai bila didiagnosis":"Cash payout upon diagnosis",
 "Pelan Penggantian Pendapatan":"Income Replacement Plan","Bantu tampung komitmen bulanan":"Helps cover monthly commitments","Lindungi pinjaman rumah":"Protects your home loan",
-"Travel & Aset":"Travel & Assets","Travel, rumah, kenderaan":"Travel, home, vehicle","Perjalanan dalam & luar negara":"Domestic & overseas trips",
+"Travel, rumah, kenderaan":"Travel, home, vehicle","Perjalanan dalam & luar negara":"Domestic & overseas trips",
 "Insurans Rumah (Fire / Flood)":"Home Insurance (Fire / Flood)","Insurans Kenderaan":"Vehicle Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
 "Perlindungan Syarikat":"Business Protection","Lindungi individu penting syarikat":"Protect your company's key people","Medical & Pampasan Korporat":"Corporate Medical & Compensation","Untuk pekerja syarikat":"For company employees",
 "Projek luar negara":"Overseas projects","Jurutera perunding, juruukur, arkitek":"Consulting engineers, surveyors, architects",
@@ -574,7 +575,7 @@ const cukaiNo = (ph) => [
 
 /* ===== Kategori & produk ===== */
 const CATS = [
- {n:"Perlindungan Diri", s:"Takaful kesihatan & hibah", i:"i-shield", p:[
+ {n:"Perlindungan Diri (Takaful)", s:"Takaful kesihatan & hibah", i:"i-shield", p:[
    {n:"Medical Card", s:"Bantu bayar bil hospital", f:takafulForm({budget:BAJET_STD})},
    {n:"Life Takaful (Hibah / TPD)", s:"Bekalan kewangan untuk keluarga", f:takafulForm({budget:BAJET_STD})},
    {n:"Pelan Sakit Kritikal", s:"Wang tunai bila didiagnosis", f:takafulForm({budget:BAJET_STD})},
@@ -582,7 +583,7 @@ const CATS = [
    {n:"MLTT (Houseowner)", s:"Lindungi pinjaman rumah", f:takafulForm({budget:BAJET_STD, extra2:[
      {row:[{k:"pinjaman", l:"Jumlah pinjaman (RM)", t:"tel"},{k:"tempoh", l:"Tempoh (tahun)", t:"tel"}]}]})}
  ]},
- {n:"Travel & Aset", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
+ {n:"Perlindungan Aset & Pelancongan", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
    {n:"Travel Takaful / Insurans", s:"Perjalanan dalam & luar negara", f:[
      {t:"Maklumat perjalanan", d:"Lengkapkan butiran di bawah dalam satu langkah.", f:[
        {sub:"Butiran perjalanan"},
@@ -659,7 +660,7 @@ const CATS = [
        {k:"fiTahunan", l:"Anggaran fi profesional setahun (RM)", t:"tel"},
        tanya]}]}
  ]},
- {n:"Estate Planning", s:"Wasiat, hibah & pusaka", i:"i-file", p:
+ {n:"Pengurusan & Perancangan Harta Pusaka", s:"Wasiat, hibah & pusaka", i:"i-file", p:
    [["Pelantikan Pentadbir (Wasi)",""],["Pengurusan Harta Pusaka",""],["Dokumen Hibah","Rumah, ASB, Tabung Haji & lain-lain"],["Wasiat 1/3",""],["Custom Hibah Takaful (Isti'man)",""]].map(([n,s])=>{ const hidup=["Dokumen Hibah","Wasiat 1/3","Custom Hibah Takaful (Isti'man)"].includes(n); const alive=d=>hidup||d.statusPemilik==="Masih hidup"; return {n, s, f:[
      {t:"Maklumat asas", f:[nama, tel, emel, negeri,
        ...(hidup?[]:[{k:"statusPemilik", l:"Status pemilik harta", t:"pills", o:["Masih hidup","Telah meninggal dunia"], req:1}])]},
@@ -670,9 +671,9 @@ const CATS = [
        {k:"penyakit", l:"Nyatakan masalah kesihatan", t:"textarea", req:1, show:d=>alive(d)&&d.kesihatan==="Ada masalah kesihatan"},
        tanya]}
    ]}; })},
- {n:"Saving & Investment", s:"Pendidikan & persaraan", i:"i-trend", p:
+ {n:"Simpanan & Pelaburan", s:"Pendidikan & persaraan", i:"i-trend", p:
    [["Saving & Investment Plan","Simpanan & pelaburan"],["Retirement Scheme (PRS)","Flexi atau Non Flexi"],["Director Provident Fund",""],["Business Owner Provident Fund",""],["Corporate Investment",""]].map(([n,s])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: n.startsWith("Retirement Scheme")?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
- {n:"Tax Services", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
+ {n:"Servis Pengisytiharaan Cukai", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
    ...[["Commission Earner","Individu berpendapatan komisen"],["Payroll / Employee","Individu bergaji"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat diri", f:[nama, tel, emel, ...alamat]},
      {t:"Pekerjaan & cukai", f:[kerja, {k:"majikan", l:"Majikan", req:1}, ...cukaiNo("Cth: IG12345678"), tanya]}
@@ -694,7 +695,7 @@ const CATS = [
        tanya]}
    ]}))
  ]},
- {n:"Property", s:"Beli, jual & sewa", i:"i-home", p:
+ {n:"Hartanah", s:"Beli, jual & sewa", i:"i-home", p:
    [["To Buy","Nak beli hartanah"],["To Sell","Nak jual hartanah"],["To Rent","Sewa atau sewakan"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat asas", f:[
        ...(n==="To Rent"?[{k:"peranan", l:"Saya adalah (pilih 1)", t:"who", o:[["Pemilik","i-home"],["Penyewa","i-user"]], req:1}, {sub:"Maklumat diri"}]:[]),
@@ -710,7 +711,7 @@ const CATS = [
          {...bajet(BAJET_PROP,"Harga sewa dijangka (bulanan)"), show:d=>d.peranan==="Pemilik"}
        ]:[bajet(BAJET_PROP,"Bajet bulanan")]), tanya]}
    ]}))},
- {n:"Financial Coaching", s:"Personal atau berkumpulan", i:"i-board", p:[
+ {n:"Jurulatih & Bimbingan Kewangan", s:"Personal atau berkumpulan", i:"i-board", p:[
    {n:"Personal", s:"Sesi seorang-seorang", f:takafulForm({noWho:1, noSmoke:1, noHealth:1})},
    {n:"Group", s:"Sesi berkumpulan", f:takafulForm({noWho:1, noSmoke:1, noHealth:1, extra2:[{k:"bilPeserta", l:"Anggaran bilangan peserta", t:"tel", req:1}]})}
  ]}
