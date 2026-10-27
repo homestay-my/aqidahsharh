@@ -406,13 +406,17 @@ const I18N = {
 "No. WhatsApp":"WhatsApp no.","Komitmen":"Commitment","Pertanyaan":"Question",
 "Salam, saya berminat nak tahu tentang peluang kerjaya.":"Hi, I'm interested in learning about the career opportunity.","MAKLUMAT SAYA":"MY DETAILS",
 /* Kategori & produk */
+"Sendirian":"Personal","Kumpulan":"Group",
+"Pelan Simpanan & Pelaburan":"Saving & Investment Plan","Skim Pencen Swasta (PRS)":"Private Retirement Scheme (PRS)","Kumpulan Wang Simpanan Direktor":"Director Provident Fund","Kumpulan Wang Simpanan Usahawan":"Business Owner Provident Fund","Pelaburan Korporat":"Corporate Investment","Untuk Membeli":"To Buy","Untuk Dijual":"To Sell","Sewaan":"To Rent",
+"Polisi 'Keyman'":"Keyman Policy","Medikal & Pampasan Korporat":"Corporate Medical & Compensation","Perlindungan Liabiliti Korporat":"Corporate Liability","Indemniti Profesional":"Professional Indemnity",
+"Kad Medikal":"Medical Card","Takaful Nyawa (Hibah / HUMK)":"Life Takaful (Hibah / TPD)","MLTT (Pemilik Rumah)":"MLTT (Houseowner)",
 "Perlindungan Diri (Takaful)":"Individual Takaful (Protection)","Perlindungan Aset & Pelancongan":"Travel & Assets Takaful","Pengurusan & Perancangan Harta Pusaka":"Estate Management & Planning","Simpanan & Pelaburan":"Saving & Investment","Servis Pengisytiharaan Cukai":"Tax Declaration Services","Hartanah":"Property","Jurulatih & Bimbingan Kewangan":"Financial Coaching",
 "Takaful kesihatan & hibah":"Health takaful & hibah","Bantu bayar bil hospital":"Helps pay hospital bills",
 "Bekalan kewangan untuk keluarga":"Financial support for your family","Pelan Sakit Kritikal":"Critical Illness Plan","Wang tunai bila didiagnosis":"Cash payout upon diagnosis",
 "Pelan Penggantian Pendapatan":"Income Replacement Plan","Bantu tampung komitmen bulanan":"Helps cover monthly commitments","Lindungi pinjaman rumah":"Protects your home loan",
 "Travel, rumah, kenderaan":"Travel, home, vehicle","Perjalanan dalam & luar negara":"Domestic & overseas trips",
-"Insurans Rumah (Fire / Flood)":"Home Insurance (Fire / Flood)","Insurans Kenderaan":"Vehicle Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
-"Perlindungan Syarikat":"Business Protection","Lindungi individu penting syarikat":"Protect your company's key people","Medical & Pampasan Korporat":"Corporate Medical & Compensation","Untuk pekerja syarikat":"For company employees",
+"Insurans Rumah (Kebakaran / Banjir)":"Home Insurance (Fire / Flood)","Insurans Kenderaan":"Vehicle Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
+"Perlindungan Syarikat":"Business Protection","Lindungi individu penting syarikat":"Protect your company's key people","Untuk pekerja syarikat":"For company employees",
 "Projek luar negara":"Overseas projects","Jurutera perunding, juruukur, arkitek":"Consulting engineers, surveyors, architects",
 "Wasiat, hibah & pusaka":"Wills, hibah & estate","Pelantikan Pentadbir (Wasi)":"Appointment of Executor (Wasi)","Pengurusan Harta Pusaka":"Estate Administration","Dokumen Hibah":"Hibah Documents","Rumah, ASB, Tabung Haji & lain-lain":"Home, ASB, Tabung Haji & more","Wasiat 1/3":"1/3 Will (Wasiat)",
 "Pendidikan & persaraan":"Education & retirement","Simpanan & pelaburan":"Savings & investment","Flexi atau Non Flexi":"Flexi or Non Flexi",
@@ -458,7 +462,7 @@ const I18N = {
 "Contoh: Darah tinggi / Kencing manis / Asma":"E.g. High blood pressure / Diabetes / Asthma","Cth: Tokyo, Jepun":"E.g. Tokyo, Japan","Cth: Ahmad bin Ali":"E.g. Ahmad bin Ali","Cth: 900101-01-1234":"E.g. 900101-01-1234",
 "Cth: 40000":"E.g. 40000","Cth: Shah Alam":"E.g. Shah Alam","Cth: Maybank":"E.g. Maybank","Cth: 2015":"E.g. 2015","Cth: DBA 1234":"E.g. DBA 1234","Cth: Myvi 1.5 AV":"E.g. Myvi 1.5 AV","Cth: Pemandu tambahan":"E.g. Additional driver",
 "Cth: Pembinaan":"E.g. Construction","Cth: IG12345678":"E.g. IG12345678","Cth: C1234567890":"E.g. C1234567890","Cth: Seksyen 7, Shah Alam":"E.g. Seksyen 7, Shah Alam",
-"Pilih negeri":"Select State","Travel Takaful / Insurans":"Travel Takaful / Insurance"
+"Pilih negeri":"Select State","Nyatakan had cermin (RM)":"Specify windscreen limit (RM)","Cth: 1500":"E.g. 1500","Harga jualan dijangka (RM)":"Expected selling price (RM)","Cth: 450000":"E.g. 450000","Travel Takaful / Insurans":"Travel Takaful / Insurance"
 };
 
 let LANG="ms";
@@ -576,11 +580,11 @@ const cukaiNo = (ph) => [
 /* ===== Kategori & produk ===== */
 const CATS = [
  {n:"Perlindungan Diri (Takaful)", s:"Takaful kesihatan & hibah", i:"i-shield", p:[
-   {n:"Medical Card", s:"Bantu bayar bil hospital", f:takafulForm({budget:BAJET_STD})},
-   {n:"Life Takaful (Hibah / TPD)", s:"Bekalan kewangan untuk keluarga", f:takafulForm({budget:BAJET_STD})},
+   {n:"Kad Medikal", s:"Bantu bayar bil hospital", f:takafulForm({budget:BAJET_STD})},
+   {n:"Takaful Nyawa (Hibah / HUMK)", s:"Bekalan kewangan untuk keluarga", f:takafulForm({budget:BAJET_STD})},
    {n:"Pelan Sakit Kritikal", s:"Wang tunai bila didiagnosis", f:takafulForm({budget:BAJET_STD})},
    {n:"Pelan Penggantian Pendapatan", s:"Bantu tampung komitmen bulanan", f:takafulForm({budget:BAJET_STD})},
-   {n:"MLTT (Houseowner)", s:"Lindungi pinjaman rumah", f:takafulForm({budget:BAJET_STD, extra2:[
+   {n:"MLTT (Pemilik Rumah)", s:"Lindungi pinjaman rumah", f:takafulForm({budget:BAJET_STD, extra2:[
      {row:[{k:"pinjaman", l:"Jumlah pinjaman (RM)", t:"tel"},{k:"tempoh", l:"Tempoh (tahun)", t:"tel"}]}]})}
  ]},
  {n:"Perlindungan Aset & Pelancongan", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
@@ -598,10 +602,10 @@ const CATS = [
        ...bank.f
      ]}
    ]},
-   {n:"Insurans Rumah (Fire / Flood)", s:"Houseowner / householder", f:[
+   {n:"Insurans Rumah (Kebakaran / Banjir)", s:"Houseowner / householder", f:[
      {t:"Maklumat pemilik", f:[namaIC, ic, tel, emel,
        {k:"alamat", l:"Alamat surat-menyurat", t:"textarea", req:1},
-       {k:"alamatHartaBeza", l:"Alamat rumah yang dilindungi", t:"pills", o:["Sama seperti di atas","Alamat lain"], req:1},
+       {k:"alamatHartaBeza", l:"Alamat rumah yang dilindungi", t:"pills", o:["Sama seperti di atas","Alamat lain"], req:1, noMsg:d=>d.alamatHartaBeza==="Alamat lain"},
        {k:"alamatHarta", l:"Alamat rumah yang dilindungi", t:"textarea", req:1, show:d=>d.alamatHartaBeza==="Alamat lain"},
        {k:"mula", l:"Tarikh mula perlindungan", t:"date", req:1}
      ]},
@@ -638,20 +642,21 @@ const CATS = [
      {t:"Tambahan (add-on)", d:"Pilih jika mahu. Boleh langkau.", f:[
        {k:"addon", l:"Add-on", t:"checks", o:["Special Perils","Cermin (windscreen)"]},
        {k:"cermin", l:"Had perlindungan cermin", t:"pills", o:["RM500","RM1,000","Lain-lain"], show:d=>(d.addon||[]).includes("Cermin (windscreen)")},
+       {k:"cerminLain", l:"Nyatakan had cermin (RM)", t:"tel", ph:"Cth: 1500", req:1, show:d=>(d.addon||[]).includes("Cermin (windscreen)")&&d.cermin==="Lain-lain"},
        {k:"addonLain", l:"Add-on lain", ph:"Cth: Pemandu tambahan"}
      ]},
      bank
    ]}
  ]},
  {n:"Perlindungan Syarikat", s:"SME & Sdn Bhd", i:"i-building", p:[
-   {n:"Keyman Policy", s:"Lindungi individu penting syarikat", f:[
+   {n:"Polisi 'Keyman'", s:"Lindungi individu penting syarikat", f:[
      {t:"Maklumat syarikat", f:[...syarikat(true), {k:"sharepartner", l:"Jumlah sharepartner (orang)", t:"tel"}]}, pic, {t:"Lain-lain", f:[tanya]}]},
-   {n:"Medical & Pampasan Korporat", s:"Untuk pekerja syarikat", f:[
+   {n:"Medikal & Pampasan Korporat", s:"Untuk pekerja syarikat", f:[
      {t:"Maklumat syarikat", f:[...syarikat(false), {k:"pekerja", l:"Jumlah pekerja", t:"tel", req:1}]}, pic, {t:"Lain-lain", f:[tanya]}]},
-   {n:"Corporate Liability", s:"Projek luar negara", f:[
+   {n:"Perlindungan Liabiliti Korporat", s:"Projek luar negara", f:[
      {t:"Maklumat syarikat", f:syarikat(true)}, pic,
      {t:"Butiran projek", f:[{k:"negaraProjek", l:"Negara / lokasi projek"}, tanya]}]},
-   {n:"Professional Indemnity", s:"Jurutera perunding, juruukur, arkitek", f:[
+   {n:"Indemniti Profesional", s:"Jurutera perunding, juruukur, arkitek", f:[
      {t:"Maklumat syarikat", f:[...syarikat(true),
        {k:"profesion", l:"Bidang profesion", t:"pills", o:["Consulting Engineer","Surveyor","Architect"], req:1}]},
      pic,
@@ -672,7 +677,7 @@ const CATS = [
        tanya]}
    ]}; })},
  {n:"Simpanan & Pelaburan", s:"Pendidikan & persaraan", i:"i-trend", p:
-   [["Saving & Investment Plan","Simpanan & pelaburan"],["Retirement Scheme (PRS)","Flexi atau Non Flexi"],["Director Provident Fund",""],["Business Owner Provident Fund",""],["Corporate Investment",""]].map(([n,s])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: n.startsWith("Retirement Scheme")?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
+   [["Pelan Simpanan & Pelaburan","Simpanan & pelaburan","plan"],["Skim Pencen Swasta (PRS)","Flexi atau Non Flexi","prs"],["Kumpulan Wang Simpanan Direktor","","dpf"],["Kumpulan Wang Simpanan Usahawan","","bopf"],["Pelaburan Korporat","","corp"]].map(([n,s,id])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: id==="prs"?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
  {n:"Servis Pengisytiharaan Cukai", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
    ...[["Commission Earner","Individu berpendapatan komisen"],["Payroll / Employee","Individu bergaji"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat diri", f:[nama, tel, emel, ...alamat]},
@@ -696,24 +701,24 @@ const CATS = [
    ]}))
  ]},
  {n:"Hartanah", s:"Beli, jual & sewa", i:"i-home", p:
-   [["To Buy","Nak beli hartanah"],["To Sell","Nak jual hartanah"],["To Rent","Sewa atau sewakan"]].map(([n,s])=>({n, s, f:[
+   [["Untuk Membeli","Nak beli hartanah","buy"],["Untuk Dijual","Nak jual hartanah","sell"],["Sewaan","Sewa atau sewakan","rent"]].map(([n,s,id])=>({n, s, f:[
      {t:"Maklumat asas", f:[
-       ...(n==="To Rent"?[{k:"peranan", l:"Saya adalah (pilih 1)", t:"who", o:[["Pemilik","i-home"],["Penyewa","i-user"]], req:1}, {sub:"Maklumat diri"}]:[]),
+       ...(id==="rent"?[{k:"peranan", l:"Saya adalah (pilih 1)", t:"who", o:[["Pemilik","i-home"],["Penyewa","i-user"]], req:1}, {sub:"Maklumat diri"}]:[]),
        nama, tel, emel, {row:[{k:"bandar", l:"Bandar", ph:"Cth: Shah Alam", req:1}, negeri]}]},
      {t:"Butiran hartanah", f:[
               {k:"jenisHarta", l:"Jenis hartanah", t:"pills", o:["Room","House","Land","Commercial Building","Shoplot","Others"], req:1},
        {k:"jenisHartaLain", l:"Nyatakan jenis hartanah", req:1, show:d=>d.jenisHarta==="Others"},
        {k:"lokasiHarta", l:"Lokasi hartanah / lokasi pilihan", ph:"Cth: Seksyen 7, Shah Alam"},
-       ...(n==="To Rent"?[{sub:"Bilangan penghuni", show:d=>d.peranan==="Penyewa"},{row:[{k:"dewasa", l:"Dewasa", t:"tel", req:1, show:d=>d.peranan==="Penyewa"},{k:"kanak", l:"Kanak-kanak", t:"tel", req:1, show:d=>d.peranan==="Penyewa"}]}]:[]),
+       ...(id==="rent"?[{sub:"Bilangan penghuni", show:d=>d.peranan==="Penyewa"},{row:[{k:"dewasa", l:"Dewasa", t:"tel", req:1, show:d=>d.peranan==="Penyewa"},{k:"kanak", l:"Kanak-kanak", t:"tel", req:1, show:d=>d.peranan==="Penyewa"}]}]:[]),
        dob, jantina, kerja,
-       ...(n==="To Rent"?[
+       ...(id==="rent"?[
          {...bajet(BAJET_PROP,"Bajet sewa bulanan"), show:d=>d.peranan!=="Pemilik"},
          {...bajet(BAJET_PROP,"Harga sewa dijangka (bulanan)"), show:d=>d.peranan==="Pemilik"}
-       ]:[bajet(BAJET_PROP,"Bajet bulanan")]), tanya]}
+       ]:id==="sell"?[{k:"hargaJual", l:"Harga jualan dijangka (RM)", t:"tel", ph:"Cth: 450000"}]:[bajet(BAJET_PROP,"Bajet bulanan")]), tanya]}
    ]}))},
  {n:"Jurulatih & Bimbingan Kewangan", s:"Personal atau berkumpulan", i:"i-board", p:[
-   {n:"Personal", s:"Sesi seorang-seorang", f:takafulForm({noWho:1, noSmoke:1, noHealth:1})},
-   {n:"Group", s:"Sesi berkumpulan", f:takafulForm({noWho:1, noSmoke:1, noHealth:1, extra2:[{k:"bilPeserta", l:"Anggaran bilangan peserta", t:"tel", req:1}]})}
+   {n:"Sendirian", s:"Sesi seorang-seorang", f:takafulForm({noWho:1, noSmoke:1, noHealth:1})},
+   {n:"Kumpulan", s:"Sesi berkumpulan", f:takafulForm({noWho:1, noSmoke:1, noHealth:1, extra2:[{k:"bilPeserta", l:"Anggaran bilangan peserta", t:"tel", req:1}]})}
  ]}
 ];
 
@@ -850,7 +855,8 @@ function buildMsg(){
       if(!f.k||!vis(f)) return;
       let v=S.d[f.k]; if(Array.isArray(v)) v=v.join(", "); if(v && f.o) v=tv(v);
       if(f.t==="date" && /^\d{4}-\d{2}-\d{2}$/.test(v||"")){ const [y,m,dd]=v.split("-"); v=`${dd}/${m}/${y}`; }
-      if(v && String(v).trim()) rows.push(`${T(f.l).replace(/\?$/,"")}: ${String(v).trim()}`);
+      if(f.noMsg && f.noMsg(S.d)) return;
+      if(v && String(v).trim()) rows.push(`${T(f.l).replace(/\s*\((pilih 1|lebih dari 1 pilihan|choose 1|you may pick more than 1)\)/i,"").replace(/\?$/,"")}: ${String(v).trim()}`);
     });
     if(rows.length) L.push("", `*${T(sec.t).toUpperCase()}*`, ...rows);
   });
