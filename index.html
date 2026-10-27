@@ -406,6 +406,7 @@ const I18N = {
 "No. WhatsApp":"WhatsApp no.","Komitmen":"Commitment","Pertanyaan":"Question",
 "Salam, saya berminat nak tahu tentang peluang kerjaya.":"Hi, I'm interested in learning about the career opportunity.","MAKLUMAT SAYA":"MY DETAILS",
 /* Kategori & produk */
+"Hibah Takaful Khas (Isti'man)":"Custom Hibah Takaful (Isti'man)","Pendapatan Komisen":"Commission Earner","Pekerja Bergaji":"Payroll / Employee","Perusahaan Kecil & Sederhana (PKS)":"Small & Medium Enterprise (SME)",
 "Sendirian":"Personal","Kumpulan":"Group",
 "Pelan Simpanan & Pelaburan":"Saving & Investment Plan","Skim Pencen Swasta (PRS)":"Private Retirement Scheme (PRS)","Kumpulan Wang Simpanan Direktor":"Director Provident Fund","Kumpulan Wang Simpanan Usahawan":"Business Owner Provident Fund","Pelaburan Korporat":"Corporate Investment","Untuk Membeli":"To Buy","Untuk Dijual":"To Sell","Sewaan":"To Rent",
 "Polisi 'Keyman'":"Keyman Policy","Medikal & Pampasan Korporat":"Corporate Medical & Compensation","Perlindungan Liabiliti Korporat":"Corporate Liability","Indemniti Profesional":"Professional Indemnity",
@@ -462,7 +463,7 @@ const I18N = {
 "Contoh: Darah tinggi / Kencing manis / Asma":"E.g. High blood pressure / Diabetes / Asthma","Cth: Tokyo, Jepun":"E.g. Tokyo, Japan","Cth: Ahmad bin Ali":"E.g. Ahmad bin Ali","Cth: 900101-01-1234":"E.g. 900101-01-1234",
 "Cth: 40000":"E.g. 40000","Cth: Shah Alam":"E.g. Shah Alam","Cth: Maybank":"E.g. Maybank","Cth: 2015":"E.g. 2015","Cth: DBA 1234":"E.g. DBA 1234","Cth: Myvi 1.5 AV":"E.g. Myvi 1.5 AV","Cth: Pemandu tambahan":"E.g. Additional driver",
 "Cth: Pembinaan":"E.g. Construction","Cth: IG12345678":"E.g. IG12345678","Cth: C1234567890":"E.g. C1234567890","Cth: Seksyen 7, Shah Alam":"E.g. Seksyen 7, Shah Alam",
-"Pilih negeri":"Select State","Nyatakan had cermin (RM)":"Specify windscreen limit (RM)","Cth: 1500":"E.g. 1500","Harga jualan dijangka (RM)":"Expected selling price (RM)","Cth: 450000":"E.g. 450000","Travel Takaful / Insurans":"Travel Takaful / Insurance"
+"Pilih negeri":"Select State","Nyatakan had cermin (RM)":"Specify windscreen limit (RM)","Cth: 1500":"E.g. 1500","Harga jualan dijangka (RM)":"Expected selling price (RM)","Cth: 450000":"E.g. 450000","Takaful / Insurans Perjalanan":"Travel Takaful / Insurance"
 };
 
 let LANG="ms";
@@ -588,7 +589,7 @@ const CATS = [
      {row:[{k:"pinjaman", l:"Jumlah pinjaman (RM)", t:"tel"},{k:"tempoh", l:"Tempoh (tahun)", t:"tel"}]}]})}
  ]},
  {n:"Perlindungan Aset & Pelancongan", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
-   {n:"Travel Takaful / Insurans", s:"Perjalanan dalam & luar negara", f:[
+   {n:"Takaful / Insurans Perjalanan", s:"Perjalanan dalam & luar negara", f:[
      {t:"Maklumat perjalanan", d:"Lengkapkan butiran di bawah dalam satu langkah.", f:[
        {sub:"Butiran perjalanan"},
        {k:"berlepas", l:"Tarikh pergi", t:"date", req:1},
@@ -666,7 +667,7 @@ const CATS = [
        tanya]}]}
  ]},
  {n:"Pengurusan & Perancangan Harta Pusaka", s:"Wasiat, hibah & pusaka", i:"i-file", p:
-   [["Pelantikan Pentadbir (Wasi)",""],["Pengurusan Harta Pusaka",""],["Dokumen Hibah","Rumah, ASB, Tabung Haji & lain-lain"],["Wasiat 1/3",""],["Custom Hibah Takaful (Isti'man)",""]].map(([n,s])=>{ const hidup=["Dokumen Hibah","Wasiat 1/3","Custom Hibah Takaful (Isti'man)"].includes(n); const alive=d=>hidup||d.statusPemilik==="Masih hidup"; return {n, s, f:[
+   [["Pelantikan Pentadbir (Wasi)",""],["Pengurusan Harta Pusaka",""],["Dokumen Hibah","Rumah, ASB, Tabung Haji & lain-lain"],["Wasiat 1/3",""],["Hibah Takaful Khas (Isti'man)",""]].map(([n,s])=>{ const hidup=["Dokumen Hibah","Wasiat 1/3","Hibah Takaful Khas (Isti'man)"].includes(n); const alive=d=>hidup||d.statusPemilik==="Masih hidup"; return {n, s, f:[
      {t:"Maklumat asas", f:[nama, tel, emel, negeri,
        ...(hidup?[]:[{k:"statusPemilik", l:"Status pemilik harta", t:"pills", o:["Masih hidup","Telah meninggal dunia"], req:1}])]},
      {t:"Butiran tambahan", f:[
@@ -679,11 +680,11 @@ const CATS = [
  {n:"Simpanan & Pelaburan", s:"Pendidikan & persaraan", i:"i-trend", p:
    [["Pelan Simpanan & Pelaburan","Simpanan & pelaburan","plan"],["Skim Pencen Swasta (PRS)","Flexi atau Non Flexi","prs"],["Kumpulan Wang Simpanan Direktor","","dpf"],["Kumpulan Wang Simpanan Usahawan","","bopf"],["Pelaburan Korporat","","corp"]].map(([n,s,id])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: id==="prs"?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
  {n:"Servis Pengisytiharaan Cukai", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
-   ...[["Commission Earner","Individu berpendapatan komisen"],["Payroll / Employee","Individu bergaji"]].map(([n,s])=>({n, s, f:[
+   ...[["Pendapatan Komisen","Individu berpendapatan komisen"],["Pekerja Bergaji","Individu bergaji"]].map(([n,s])=>({n, s, f:[
      {t:"Maklumat diri", f:[nama, tel, emel, ...alamat]},
      {t:"Pekerjaan & cukai", f:[kerja, {k:"majikan", l:"Majikan", req:1}, ...cukaiNo("Cth: IG12345678"), tanya]}
    ]})),
-   ...[["Small & Medium Enterprise (SME)","Enterprise / perniagaan kecil"],["Sdn Bhd","Syarikat sendirian berhad"]].map(([n,s],i)=>({n, s, f:[
+   ...[["Perusahaan Kecil & Sederhana (PKS)","Enterprise / perniagaan kecil"],["Sdn Bhd","Syarikat sendirian berhad"]].map(([n,s],i)=>({n, s, f:[
      {t:i?"Jenis servis":"Maklumat syarikat", f:[
        ...(i?[{k:"jenisServis", l:"Pilih servis (lebih dari 1 pilihan)", t:"checks", o:["Accounting & Tax","Auditing","Company Secretary"], req:1},{sub:"Maklumat syarikat"}]:[]),
        {k:"syarikat", l:"Nama syarikat", req:1},
