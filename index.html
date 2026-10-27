@@ -660,16 +660,16 @@ const CATS = [
        tanya]}]}
  ]},
  {n:"Estate Planning", s:"Wasiat, hibah & pusaka", i:"i-file", p:
-   [["Pelantikan Pentadbir (Wasi)",""],["Pengurusan Harta Pusaka",""],["Dokumen Hibah","Rumah, ASB, Tabung Haji & lain-lain"],["Wasiat 1/3",""],["Custom Hibah Takaful (Isti'man)",""]].map(([n,s])=>({n, s, f:[
+   [["Pelantikan Pentadbir (Wasi)",""],["Pengurusan Harta Pusaka",""],["Dokumen Hibah","Rumah, ASB, Tabung Haji & lain-lain"],["Wasiat 1/3",""],["Custom Hibah Takaful (Isti'man)",""]].map(([n,s])=>{ const hidup=["Dokumen Hibah","Wasiat 1/3","Custom Hibah Takaful (Isti'man)"].includes(n); const alive=d=>hidup||d.statusPemilik==="Masih hidup"; return {n, s, f:[
      {t:"Maklumat asas", f:[nama, tel, emel, negeri,
-       {k:"statusPemilik", l:"Status pemilik harta", t:"pills", o:["Masih hidup","Telah meninggal dunia"], req:1}]},
+       ...(hidup?[]:[{k:"statusPemilik", l:"Status pemilik harta", t:"pills", o:["Masih hidup","Telah meninggal dunia"], req:1}])]},
      {t:"Butiran tambahan", f:[
        dob, jantina, kerja,
-       {k:"merokok", l:"Merokok atau vape?", t:"pills", o:["Tidak","Ya"], req:1, show:d=>d.statusPemilik==="Masih hidup"},
-       {k:"kesihatan", l:"Status kesihatan semasa", t:"pills", o:["Tiada masalah kesihatan","Ada masalah kesihatan"], req:1, show:d=>d.statusPemilik==="Masih hidup"},
-       {k:"penyakit", l:"Nyatakan masalah kesihatan", t:"textarea", req:1, show:d=>d.statusPemilik==="Masih hidup"&&d.kesihatan==="Ada masalah kesihatan"},
+       {k:"merokok", l:"Merokok atau vape?", t:"pills", o:["Tidak","Ya"], req:1, show:alive},
+       {k:"kesihatan", l:"Status kesihatan semasa", t:"pills", o:["Tiada masalah kesihatan","Ada masalah kesihatan"], req:1, show:alive},
+       {k:"penyakit", l:"Nyatakan masalah kesihatan", t:"textarea", req:1, show:d=>alive(d)&&d.kesihatan==="Ada masalah kesihatan"},
        tanya]}
-   ]}))},
+   ]}; })},
  {n:"Saving & Investment", s:"Pendidikan & persaraan", i:"i-trend", p:
    [["Saving & Investment Plan","Simpanan & pelaburan"],["Retirement Scheme (PRS)","Flexi atau Non Flexi"],["Director Provident Fund",""],["Business Owner Provident Fund",""],["Corporate Investment",""]].map(([n,s])=>({n, s, f:takafulForm({budget:BAJET_SAVE, top: n.startsWith("Retirement Scheme")?[{k:"jenisPRS", l:"Jenis PRS (pilih 1)", t:"pills", o:["Flexi","Non Flexi"], req:1}]:[]})}))},
  {n:"Tax Services", s:"Cukai, akaun, audit, setiausaha", i:"i-receipt", p:[
