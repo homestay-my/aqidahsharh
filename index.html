@@ -268,6 +268,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);bac
   <symbol id="i-brief" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M22 12a10.06 10.06 1 0 0-20 0Z"/><path d="M12 12v8a2 2 0 0 0 4 0"/><path d="M12 2v1"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
 </svg>
 
@@ -407,7 +409,7 @@ const I18N = {
 "Salam, saya berminat nak tahu tentang peluang kerjaya.":"Hi, I'm interested in learning about the career opportunity.","MAKLUMAT SAYA":"MY DETAILS",
 /* Kategori & produk */
 "Hibah Takaful Khas (Isti'man)":"Custom Hibah Takaful (Isti'man)","Pendapatan Komisen":"Commission Earner","Pekerja Bergaji":"Payroll / Employee","Perusahaan Kecil & Sederhana (PKS)":"Small & Medium Enterprise (SME)",
-"Sendirian":"Personal","Kumpulan":"Group",
+"Sendirian":"Personal","Kumpulan":"Group","Pemilik / penghuni rumah":"Houseowner / householder",
 "Pelan Simpanan & Pelaburan":"Saving & Investment Plan","Skim Pencen Swasta (PRS)":"Private Retirement Scheme (PRS)","Kumpulan Wang Simpanan Direktor":"Director Provident Fund","Kumpulan Wang Simpanan Usahawan":"Business Owner Provident Fund","Pelaburan Korporat":"Corporate Investment","Untuk Membeli":"To Buy","Untuk Dijual":"To Sell","Sewaan":"To Rent",
 "Polisi 'Keyman'":"Keyman Policy","Medikal & Pampasan Korporat":"Corporate Medical & Compensation","Perlindungan Liabiliti Korporat":"Corporate Liability","Indemniti Profesional":"Professional Indemnity",
 "Kad Medikal":"Medical Card","Takaful Nyawa (Hibah / HUMK)":"Life Takaful (Hibah / TPD)","MLTT (Pemilik Rumah)":"MLTT (Houseowner)",
@@ -416,7 +418,7 @@ const I18N = {
 "Bekalan kewangan untuk keluarga":"Financial support for your family","Pelan Sakit Kritikal":"Critical Illness Plan","Wang tunai bila didiagnosis":"Cash payout upon diagnosis",
 "Pelan Penggantian Pendapatan":"Income Replacement Plan","Bantu tampung komitmen bulanan":"Helps cover monthly commitments","Lindungi pinjaman rumah":"Protects your home loan",
 "Travel, rumah, kenderaan":"Travel, home, vehicle","Perjalanan dalam & luar negara":"Domestic & overseas trips",
-"Insurans Rumah (Kebakaran / Banjir)":"Home Insurance (Fire / Flood)","Insurans Kenderaan":"Vehicle Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
+"Takaful / Insurans Rumah (Kebakaran / Banjir)":"Home Takaful / Insurance (Fire / Flood)","Takaful / Insurans Kenderaan":"Vehicle Takaful / Insurance","Motor, kereta, lori, van":"Motorcycle, car, lorry, van",
 "Perlindungan Syarikat":"Business Protection","Lindungi individu penting syarikat":"Protect your company's key people","Untuk pekerja syarikat":"For company employees",
 "Projek luar negara":"Overseas projects","Jurutera perunding, juruukur, arkitek":"Consulting engineers, surveyors, architects",
 "Wasiat, hibah & pusaka":"Wills, hibah & estate","Pelantikan Pentadbir (Wasi)":"Appointment of Executor (Wasi)","Pengurusan Harta Pusaka":"Estate Administration","Dokumen Hibah":"Hibah Documents","Rumah, ASB, Tabung Haji & lain-lain":"Home, ASB, Tabung Haji & more","Wasiat 1/3":"1/3 Will (Wasiat)",
@@ -588,8 +590,8 @@ const CATS = [
    {n:"MLTT (Pemilik Rumah)", s:"Lindungi pinjaman rumah", f:takafulForm({budget:BAJET_STD, extra2:[
      {row:[{k:"pinjaman", l:"Jumlah pinjaman (RM)", t:"tel"},{k:"tempoh", l:"Tempoh (tahun)", t:"tel"}]}]})}
  ]},
- {n:"Perlindungan Aset & Pelancongan", s:"Travel, rumah, kenderaan", i:"i-plane", p:[
-   {n:"Takaful / Insurans Perjalanan", s:"Perjalanan dalam & luar negara", f:[
+ {n:"Perlindungan Aset & Pelancongan", s:"Travel, rumah, kenderaan", i:"i-umbrella", p:[
+   {n:"Takaful / Insurans Perjalanan", s:"Perjalanan dalam & luar negara", i:"i-plane", f:[
      {t:"Maklumat perjalanan", d:"Lengkapkan butiran di bawah dalam satu langkah.", f:[
        {sub:"Butiran perjalanan"},
        {k:"berlepas", l:"Tarikh pergi", t:"date", req:1},
@@ -603,7 +605,7 @@ const CATS = [
        ...bank.f
      ]}
    ]},
-   {n:"Insurans Rumah (Kebakaran / Banjir)", s:"Houseowner / householder", f:[
+   {n:"Takaful / Insurans Rumah (Kebakaran / Banjir)", s:"Pemilik / penghuni rumah", i:"i-home", f:[
      {t:"Maklumat pemilik", f:[namaIC, ic, tel, emel,
        {k:"alamat", l:"Alamat surat-menyurat", t:"textarea", req:1},
        {k:"alamatHartaBeza", l:"Alamat rumah yang dilindungi", t:"pills", o:["Sama seperti di atas","Alamat lain"], req:1, noMsg:d=>d.alamatHartaBeza==="Alamat lain"},
@@ -627,7 +629,7 @@ const CATS = [
      ]},
      bank
    ]},
-   {n:"Insurans Kenderaan", s:"Motor, kereta, lori, van", f:[
+   {n:"Takaful / Insurans Kenderaan", s:"Motor, kereta, lori, van", i:"i-car", f:[
      {t:"Maklumat kenderaan", f:[
        {k:"kenderaan", l:"Jenis kenderaan", t:"pills", o:["Motor","Kereta","Lori","Van"], req:1},
        {row:[{k:"noPendaftaran", l:"No. pendaftaran", ph:"Cth: DBA 1234", req:1},{k:"cc", l:"Kapasiti (CC)", t:"tel", req:1}]},
@@ -789,7 +791,7 @@ function render(anim){
   } else if (st===1){
     v.innerHTML=`${crumb}<p class="qtitle">2. Pilih produk / servis</p><p class="qdesc">Soalan seterusnya akan ikut pilihan anda.</p>
       <div class="rows">${S.cat.p.map((p,i)=>`<button class="row ${S.prod===p?"on":""}" type="button" data-p="${i}" aria-pressed="${S.prod===p}">
-        <span class="ibox">${ico(S.cat.i)}</span><span class="t"><b>${esc(p.n)}</b>${p.s?`<small>${esc(p.s)}</small>`:""}</span>${ico("i-chev","i ch")}</button>`).join("")}</div>`;
+        <span class="ibox">${ico(p.i||S.cat.i)}</span><span class="t"><b>${esc(p.n)}</b>${p.s?`<small>${esc(p.s)}</small>`:""}</span>${ico("i-chev","i ch")}</button>`).join("")}</div>`;
     v.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{const p=S.cat.p[b.dataset.p]; if(S.prod!==p){S.prod=p;S.d={};} go(2)});
   } else if (st===n-1){
     const msg=buildMsg();
